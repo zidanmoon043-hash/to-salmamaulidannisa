@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBD Sayangku Cantiku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --maroon: #800000;
+            --gold: #D4AF37;
+            --pink-bg: #fff5f5;
+        }
+
+        body {
+            margin: 0; padding: 0; background: #1a0000;
+            font-family: 'Poppins', sans-serif; overflow-x: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;
+            transition: background 1.5s ease;
+        }
+
+        /* --- INTRO SECTION --- */
+        #introSection { text-align: center; z-index: 200; position: fixed; }
+        #loveBalloon {
+            font-size: 100px; cursor: pointer; display: inline-block;
+            filter: drop-shadow(0 0 20px var(--maroon));
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+        }
+        #introText {
+            color: var(--gold); margin-top: 25px; font-size: 1.2rem;
+            font-style: italic; text-shadow: 1px 1px 5px black;
+        }
+
+        /* --- MAIN CONTENT --- */
+        #mainContent {
+            display: none; width: 100%; flex-direction: column; align-items: center;
+            padding: 50px 0; z-index: 100; opacity: 0; transition: opacity 1s;
+        }
+
+        .header-box {
+            background: white; padding: 40px; border-radius: 30px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.2); text-align: center;
+            width: 85%; border: 4px double var(--maroon); margin-bottom: 30px;
+        }
+
+        .header-box h1 { 
+            font-family: 'Dancing Script', cursive; 
+            color: var(--maroon); font-size: 2.5rem; margin-bottom: 10px; 
+        }
+
+        .doa-text {
+            font-size: 1rem; color: #444; line-height: 1.8;
+            padding: 15px; border-top: 1px solid #eee; text-align: center;
+        }
+
+        /* --- PHOTO GRID RAMAI & GERAK --- */
+        .photo-container {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px; padding: 20px; width: 90%;
+        }
+
+        .photo-card {
+            background: white; padding: 10px; border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border: 2px solid var(--gold);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .photo-card img {
+            width: 100%; height: 160px; object-fit: cover; border-radius: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* --- TOMBOL & MODAL UNDANGAN --- */
+        .btn-undangan {
+            background: var(--maroon); color: var(--gold); border: 2px solid var(--gold);
+            padding: 20px 40px; border-radius: 50px; font-weight: bold;
+            cursor: pointer; margin: 40px 0; font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(128, 0, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #modalUndangan {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 500; align-items: center; justify-content: center;
+        }
+
+        .undangan-paper {
+            background: #fffaf0; width: 85%; max-height: 90vh; border-radius: 5px;
+            padding: 40px 20px; border: 8px double var(--gold);
+            text-align: center; overflow-y: auto; color: #333;
+        }
+
+        .location-box {
+            background: #ffeded; border: 1px dashed var(--maroon);
+            padding: 15px; margin: 20px 0; border-radius: 10px; font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="lagu" loop src="https://cdn.pixabay.com/audio/2022/11/24/audio_32c4b3b2ad.mp3"></audio>
+    <audio id="pop" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+
+    <div id="introSection">
+        <div id="loveBalloon" onclick="klikBalon()">❤️</div>
+        <p id="introText">Selamat datang cantik,<br>silahkan klik beberapa kali...</p>
+    </div>
+
+    <div id="mainContent">
+        <div class="header-box">
+            <h1>Happy 21st Birthday, Sayangku!</h1>
+            <div class="doa-text">
+                Selamat ulang tahun yang ke-21 buat <b>sayangku, cantiku, Salma Maulidannisa</b>. <br><br>
+                Di umur yang spesial ini, doaku yang paling tulus untukmu: Semoga kamu selalu diberkati dengan kesehatan, kebahagiaan yang melimpah, dan hati yang selalu tenang. Semoga setiap langkahmu tahun ini membawa kesuksesan dan keberuntungan. <br><br>
+                Tetaplah menjadi sosok yang ceria dan luar biasa cantik, luar maupun dalam. Terima kasih sudah mengizinkanku menjadi bagian dari harimu. Aku sangat bersyukur memilikimu. <br><br>
+                <b>Semoga panjang umur dan bahagia selamanya ya, Cantiku! ❤️</b>
+            </div>
+        </div>
+
+        <div class="photo-container" id="gallery"></div>
+
+        <button class="btn-undangan" onclick="bukaUndangan()">BUKA UNDANGAN RESMI</button>
+    </div>
+
+    <div id="modalUndangan">
+        <div class="undangan-paper">
+            <h2 style="font-family: 'Dancing Script', cursive; color: var(--maroon); font-size: 2rem; margin: 0;">Undangan Spesial</h2>
+            <p style="font-weight: bold; letter-spacing: 2px;">SALMA MAULIDANNISA</p>
+            <hr style="border: 0.5px solid var(--gold); width: 80%;">
+            <div class="undangan-body">
+                <p>Tanpa mengurangi rasa hormat, saya mengundang <b>Sayangku Cantiku</b> untuk hadir merayakan momen bahagia ini:</p>
+                <div class="location-box">
+                    <p><b>📅 Selasa, 22 April 2026</b></p>
+                    <p><b>⏰ Jam 18:00 WIB</b></p>
+                    <p><b>📍 Little Emily</b></p>
+                    <p style="font-size: 0.75rem;">Jl. Mars Dirgahayu No.18, RT.8/RW.10, Cibeunying, Kec. Cimenyan, Kabupaten Bandung</p>
+                </div>
+                <p>Kehadiranmu sangat ditunggu untuk melengkapi kebahagiaan hari ini.</p>
+                <p style="margin-top: 20px; font-weight: 600;">Ditunggu kehadiran nya cantik!</p>
+            </div>
+            <button onclick="tutupUndangan()" style="margin-top: 15px; border: 1px solid var(--maroon); background: none; color: var(--maroon); padding: 8px 15px; border-radius: 5px; cursor: pointer;">Tutup</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        let klik = 0;
+
+        function klikBalon() {
+            klik++;
+            document.getElementById('loveBalloon').style.transform = `scale(${1 + klik*0.3})`;
+            
+            if(klik >= 5) {
+                document.getElementById('pop').play();
+                
+                // Efek Kembang Api Meriah
+                var end = Date.now() + (5 * 1000);
+                var colors = ['#800000', '#D4AF37', '#ffeded'];
+
+                (function frame() {
+                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+                    if (Date.now() < end) { requestAnimationFrame(frame); }
+                }());
+                
+                setTimeout(masukHalamanUtama, 800);
+            }
+        }
+
+        function masukHalamanUtama() {
+            document.getElementById('introSection').style.display = 'none';
+            document.body.style.background = 'var(--pink-bg)';
+            const main = document.getElementById('mainContent');
+            main.style.display = 'flex';
+            setTimeout(() => { main.style.opacity = '1'; }, 100);
+            document.getElementById('lagu').play();
+            loadPhotos();
+        }
+
+        function loadPhotos() {
+            const gal = document.getElementById('gallery');
+            for(let i=1; i<=20; i++) {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                card.style.animationDelay = (Math.random() * 2) + 's';
+                const img = document.createElement('img');
+                img.src = `${i}.jpg.jpeg`;
+                img.onerror = function() { this.src = `https://via.placeholder.com/150/800000/ffffff?text=Cantik+${i}`; };
+                card.appendChild(img);
+                gal.appendChild(card);
+            }
+        }
+
+        function bukaUndangan() { document.getElementById('modalUndangan').style.display = 'flex'; }
+        function tutupUndangan() { document.getElementById('modalUndangan').style.display = 'none'; }
+    </script>
+</body>
+</html>
