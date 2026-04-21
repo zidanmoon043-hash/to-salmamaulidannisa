@@ -27,7 +27,7 @@
         }
         #loveBtn { font-size: 100px; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 0 20px var(--gold)); }
         #introText { text-align: center; color: var(--gold); margin-top: 20px; padding: 0 20px; }
-        #introText b { font-family: 'Playfair Display', serif; font-size: 1.6rem; display: block; color: white; margin-bottom: 10px; }
+        #introText b { font-family: 'Playfair Display', serif; font-size: 1.8rem; display: block; color: white; margin-bottom: 10px; font-weight: 700; }
 
         /* --- MAIN CONTENT --- */
         #mainContent {
@@ -49,7 +49,7 @@
         }
         .doa-text p { margin-bottom: 20px; }
 
-        /* --- INFINITE SLIDER (ANTI KOSONG) --- */
+        /* --- INFINITE SLIDER --- */
         .slider-wrapper { width: 100%; overflow: hidden; background: rgba(0,0,0,0.3); padding: 30px 0; margin-bottom: 40px; }
         .slider-track { display: flex; width: max-content; animation: scroll 45s linear infinite; }
         .slide { width: 220px; height: 300px; padding: 0 10px; flex-shrink: 0; }
@@ -71,7 +71,6 @@
             100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
         }
 
-        /* --- BUTTON --- */
         .btn-undangan {
             background: transparent; color: var(--gold); border: 2px solid var(--gold);
             padding: 15px 30px; border-radius: 5px; font-weight: bold; cursor: pointer;
@@ -96,9 +95,9 @@
     <div id="introSection">
         <div id="loveBtn" onclick="mulai()">❤️</div>
         <div id="introText">
-            <b>Yeayy cie ulang tahun!</b>
-            Selamat ulang tahun sayanggggg yang ke 21th alhamdulillah yah.<br>
-            Klik hatinya ya cantiku...
+            <b>Hello, welcome to the most beautiful woman in the world.</b>
+            Yeayy cie ulang tahun, selamat ulang tahun sayanggggg yang ke 21th alhamdulillah yah.<br>
+            Please click the love button a few times to continue...
         </div>
     </div>
 
@@ -155,7 +154,6 @@
                 setTimeout(() => { document.getElementById('mainContent').style.opacity = '1'; }, 100);
                 document.getElementById('lagu').play();
                 
-                // Meriah: Kembang api non-stop 10 detik
                 var end = Date.now() + (10 * 1000);
                 (function frame() {
                     confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#D4AF37', '#ffffff', '#000080'] });
@@ -183,14 +181,12 @@
 
         function isiSlider() {
             const t = document.getElementById('track');
-            // Menampilkan foto 1-20 sebanyak 2 kali agar slide tidak putus (gapless)
             for(let j=0; j<2; j++) {
                 for(let i=1; i<=20; i++) {
                     const s = document.createElement('div');
                     s.className = 'slide';
                     const img = document.createElement('img');
                     img.src = `${i}.jpg.jpeg`;
-                    // Proteksi agar slide tidak kosong jika file tidak ditemukan
                     img.onerror = function() { this.src = `1.jpg.jpeg`; }; 
                     s.appendChild(img);
                     t.appendChild(s);
